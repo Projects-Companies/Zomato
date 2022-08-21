@@ -1,0 +1,37 @@
+.tabs-extra-demo-button {
+  margin-right: 16px;
+}
+
+label {
+  color: rgb(18, 18, 18);
+}
+
+.ant-row-rtl .tabs-extra-demo-button {
+  margin-right: 0;
+  margin-left: 16px;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #e7a219;
+  text-shadow: 0 0 0.25px currentcolor;
+}
+.ant-tabs-tab.ant-tabs-tab .ant-tabs-tab-btn:hover {
+  color: #e7a219;
+  text-shadow: 0 0 0.25px currentcolor;
+}
+
+.tabs-extra-demo-button {
+  color: #e7a219;
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.tabs-extra-demo-button:hover {
+  color: #e7a219;
+}
+
+.tabs {
+  background-color: rgb(39, 132, 132);
+  color: rgb(255, 255, 255);
+  height: 46px;
+}

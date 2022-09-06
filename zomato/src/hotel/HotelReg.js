@@ -35,7 +35,7 @@ function HotelReg() {
   const Success = () => {
     message
       .loading("Adding..", 0.5)
-      .then(() => message.info("Hotel added Succesfully", 2.5));
+      .then(() => message.info("Hotel added Succesfully", 1.5));
   };
 
   
@@ -91,7 +91,7 @@ function HotelReg() {
 
       <form onSubmit={onSubmits}>
         <div class="container mb-5">
-          <div class="row row-cols-3 row-cols-lg-3 g-2 g-lg-3">
+          <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
             <div class="col">
               <div class="p-0">
                 <div>
@@ -178,7 +178,8 @@ function HotelReg() {
                       name="pin"
                       value={fullName.pin}
                       onChange={inputEvent}
-                      type="Number"
+                      type="text"
+                      maxLength="6"
                       className="form-control form-control-sm"
                       id="colFormLabelLg3"
                       placeholder="Enter your pin"
@@ -226,7 +227,8 @@ function HotelReg() {
                       name="contact"
                       value={fullName.contact}
                       onChange={inputEvent}
-                      type="Number"
+                      type="text"
+                      maxLength="10"
                       className="form-control form-control-sm"
                       id="colFormLabelLg3"
                       placeholder="eg: Number "
@@ -246,16 +248,20 @@ function HotelReg() {
                     TYPE
                   </label>
                   <div className="col-sm-10">
-                    <input
+                    <select
                       name="type"
                       value={fullName.type}
                       onChange={inputEvent}
                       type="text"
-                      className="form-control form-control-sm"
+                      className="form-select form-select-sm"
                       id="colFormLabelLg3"
-                      placeholder="eg: Veg or Non-Veg "
+                      
                       required
-                    />
+                    >
+                    <option value="Select Option">Select Option</option>
+                    <option value="Veg">Veg</option>
+                    <option value="Non_Veg">Non_Veg</option>
+                    </select>
                   </div>
                 </div>
               </div>

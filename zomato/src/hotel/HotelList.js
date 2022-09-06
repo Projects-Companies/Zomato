@@ -11,17 +11,9 @@ const { confirm } = Modal;
 function HotelList() {
   const [response, setResponse] = useState([]);
   const [visibles, setVisible] = useState(false);
-  const [send, setSend] = useState({})
-  // const [update, setUpdate] = useState({
-  //   h_name: "",
-  //   address: "",
-  //   city: "",
-  //   state: "",
-  //   pin: "",
-  //   h_owner: "",
-  //   contact: "",
-  //   type: "",
-  // });
+  const [send, setSend] = useState({});
+
+  // console.log("CHCK", send.h_name);
 
   async function fetching() {
     const res = await fetch("http://localhost:4100/hotellist");
@@ -30,7 +22,7 @@ function HotelList() {
   }
 
   const Delete = () => {
-    message.success("Deleted Successfully");
+    message.success("Deleted Successfully", 1.5);
   };
 
   {
@@ -66,9 +58,7 @@ function HotelList() {
     fetching();
   }, []);
 
-  const UpdateData = async (id) => {
-
-    let send = send;
+  function updateData(con) {
     const data = {
       h_name: send.h_name,
       address: send.address,
@@ -80,15 +70,25 @@ function HotelList() {
       type: send.type,
     };
 
-    const res = await fetch(`http://localhost:4100/hotellist/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    const datas = res.json();
+    // console.log("CHECK 2", send.h_name);
+    // console.log("CHECK 22", con);
 
-    setSend(datas);
-  };
+    const run = async () => {
+      const res = await fetch(`http://localhost:4100/hotellist/${con}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      const datas = await res.json();
+      console.log("data api", datas);
+      setSend(datas);
+    };
+
+    run();
+
+    fetching();
+  }
 
   return (
     <div>
@@ -127,7 +127,7 @@ function HotelList() {
                     variant="contained"
                     onClick={() => {
                       setVisible(true);
-                      setSend(data1)
+                      setSend(data1);
                     }}
                   >
                     <EditIcon color="action" />
@@ -156,8 +156,9 @@ function HotelList() {
         centered
         visible={visibles}
         onOk={() => {
-          setVisible(false)
-          UpdateData(send.hid)
+          setVisible(false);
+          updateData(send.hid);
+          console.log(send.hid);
         }}
         onCancel={() => setVisible(false)}
         width={1000}

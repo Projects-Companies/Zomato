@@ -16,24 +16,8 @@ function ViewItem() {
     setResponse(print);
   };
 
-  // const deleteFun = (mid) => {
-  //   fetch(`http://localhost:4100/menulist/${mid}`, { method: "DELETE" }).then(
-  //     (res) => {
-  //       return res.text();
-  //     }
-  //   );
-
-  //   alert("deleted");
-
-  //   fetching();
-  // };
-
-  {
-    /* ANT DESIGN MODAL */
-  }
-
   const Delete = () => {
-    message.success('Deleted Successfully');
+    message.success("Deleted Successfully", 1.5);
   };
 
   const showPromiseConfirm = (id) => {
@@ -52,7 +36,7 @@ function ViewItem() {
         })
           .then(() => {
             fetching();
-            Delete()
+            Delete();
           })
           .catch(() => console.log("Oops errors!"));
       },
@@ -76,6 +60,7 @@ function ViewItem() {
             <th>Type</th>
             <th>Available_option</th>
             <th>Hotel Name</th>
+            <th>Image</th>
             <th>Update</th>
             <th>Delete</th>
           </tr>
@@ -90,6 +75,7 @@ function ViewItem() {
                 <td>{data1.type}</td>
                 <td>{data1.avl_option}</td>
                 <td>{data1.h_name}</td>
+                <td>{data1.feature_pic}</td>
 
                 <td>
                   <Button variant="contained">

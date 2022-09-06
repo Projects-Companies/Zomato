@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Button from "@mui/material/Button";
-import { Modal, Space, message } from "antd";
+// import Button from "@mui/material/Button";
+import { Button, Modal, Space, message, Form, Upload } from "antd";
+import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
+
+const normFile = (e) => {
+  console.log("Upload event:", e);
+
+  if (Array.isArray(e)) {
+    return e;
+  }
+
+  return e?.fileList;
+};
 
 function AddItem() {
   const [fullName, setFullName] = useState({
@@ -9,6 +20,7 @@ function AddItem() {
     type: "",
     avl_option: "",
     h_name: "",
+    upload: "",
   });
 
   async function fetching() {
@@ -19,7 +31,7 @@ function AddItem() {
   const Success = () => {
     message
       .loading("Adding..", 0.5)
-      .then(() => message.info("Menu added Succesfully", 2.5));
+      .then(() => message.info("Menu added Succesfully", 1.5));
   };
 
   const inputEvent = (e) => {
@@ -47,6 +59,7 @@ function AddItem() {
       type: fullName.type,
       avl_option: fullName.avl_option,
       h_name: fullName.h_name,
+      feature_pic: fullName.upload,
     };
 
     fetch("http://localhost:4100/menuitem", {
@@ -65,6 +78,7 @@ function AddItem() {
       type: "",
       avl_option: "",
       h_name: "",
+      upload: "",
     });
   }
 
@@ -144,7 +158,8 @@ function AddItem() {
                       name="price"
                       value={fullName.price}
                       onChange={inputEvent}
-                      type="Number"
+                      type="text"
+                      maxLength="10"
                       className="form-control form-control-sm"
                       id="colFormLabelLg2"
                       placeholder="Enter your item price"
@@ -154,6 +169,7 @@ function AddItem() {
                 </div>
               </div>
             </div>
+
             <div class="col">
               <div class="p-0">
                 <div>
@@ -164,16 +180,20 @@ function AddItem() {
                     TYPE
                   </label>
                   <div className="col-sm-10">
-                    <input
+                    <select
                       name="type"
                       value={fullName.type}
                       onChange={inputEvent}
-                      class="form-control form-control-sm"
+                      class="form-select form-select-sm"
                       id="colFormLabelLg3"
                       aria-label="Default select example"
                       placeholder="Ex: Veg or Non-Veg"
                       required
-                    />
+                    >
+                      <option value="">Select Option</option>
+                      <option value="Veg">Veg</option>
+                      <option value="Non_Veg">Non Veg</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -214,13 +234,46 @@ function AddItem() {
                 </div>
               </div>
             </div>
+            <div class="col">
+              <div class="p-0">
+                <div>
+                  <label
+                    htmlFor="colFormLabelLg2"
+                    className="col-sm-4 col-form-label col-form-label-sm"
+                  >
+                    UPLOAD IMAGE
+                  </label>
+                  <div>
+                    <Upload
+                      name="upload"
+                      value={fullName.upload}
+                      onChange={inputEvent}
+                      action="/upload.do"
+                      multiple
+                    >
+                      <Button type="primary" icon={<UploadOutlined />}>
+                        Click to upload
+                      </Button>
+                    </Upload>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         <center>
-          <Button variant="contained" type="submit">
-            Add
-          </Button>
+          <input
+            style={{
+              backgroundColor: "#1565C0",
+              color: "white",
+              border: "none",
+            }}
+            type="submit"
+            value="Add"
+            className="px-4 py-2 rounded shadow"
+            size="large"
+          ></input>
         </center>
       </form>
     </div>
